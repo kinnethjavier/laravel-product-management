@@ -13,7 +13,11 @@ class CategoryController extends Controller
     public function addCategory()
     {
         if(Auth::check()){
-            return view('categories.add');
+            if(Auth::user()->category_management === 1) {
+                return view('categories.add');
+            }
+            
+            return redirect("categories");
         }
     
         return redirect("login")->with('error', 'No credentials was found. Please sign in.');

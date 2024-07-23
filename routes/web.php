@@ -6,6 +6,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 
+// Default Route
+Route::get('/', [ProductController::class, 'show'])->name('products');
+
 // Auth Routes
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::get('register', [AuthController::class, 'register'])->name('register');

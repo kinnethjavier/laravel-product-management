@@ -14,8 +14,13 @@ class ProductController extends Controller
     public function addProduct()
     {
         if(Auth::check()){
-            $categoryList = Category::all();
-            return view('products.add', compact('categoryList'));
+            if(Auth::user()->product_management === 1)
+            {
+                $categoryList = Category::all();
+                return view('products.add', compact('categoryList'));
+            }
+            
+            return redirect("products/own");
         }
     
         return redirect("login")->with('error', 'No credentials was found. Please sign in.');
@@ -98,7 +103,11 @@ class ProductController extends Controller
             $categoryList = Category::all();
             $categoryList->prepend(new Category(['category' => 'Other'])); // add default value of category
 
-            return view('products.edit', compact('productInfo', 'categoryList'));
+            if(Auth::user()->id === $productInfo->added_by) {
+                return view('products.edit', compact('productInfo', 'categoryList'));
+            }
+
+            return redirect('products/own');
         }
   
         return redirect("login")->with('error', 'No credentials was found. Please sign in.');
