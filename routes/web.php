@@ -25,7 +25,7 @@ Route::post('products', [ProductController::class, 'store'])->name('products.add
 
 Route::put('products/update/{id}', [ProductController::class, 'update'])->name('products.update');
 
-Route::delete('products/delete/{id}', [ProductController::class, 'destroy']) -> name('products.delete');
+Route::delete('products/delete/{id}', [ProductController::class, 'destroy'])->name('products.delete');
 
 // Category Routes
 Route::get('categories', [CategoryController::class, 'show'])->name('categories');
@@ -36,7 +36,12 @@ Route::post('categories', [CategoryController::class, 'store'])->name('categorie
 
 Route::put('categories/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
 
-Route::delete('categories/delete/{id}', [CategoryController::class, 'destroy']) -> name('categories.delete');
+Route::delete('categories/delete/{id}', [CategoryController::class, 'destroy'])->name('categories.delete');
 
 // User Management Routes
 Route::get('users', [UserController::class, 'show'])->name('users');
+
+Route::put('users/update/pm/{id}', [UserController::class, 'updatePM'])->name('users.update.pm');
+Route::put('users/update/cm/{id}', [UserController::class, 'updateCM'])->name('users.update.cm');
+
+Route::delete('users/delete/{id}', [UserController::class, 'destroy']) ->name('users.delete');

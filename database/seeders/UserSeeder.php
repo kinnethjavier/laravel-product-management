@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class UserSeeder extends Seeder
 {
@@ -21,6 +22,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('1234admin'),
             'product_management' => 1,
             'category_management' => 1,
+            'created_at' => Carbon::now()
         ]);
     }
 }

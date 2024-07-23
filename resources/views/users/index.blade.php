@@ -15,7 +15,7 @@
                     <th scope="col" class="px-3 py-3.5 text-left text-base font-semibold text-gray-900">Permissions</th>
                     <th scope="col" class="px-3 py-3.5 text-left text-base font-semibold text-gray-900">Created at</th>
                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0 text-right text-base font-semibold text-gray-900">
-                        Actions
+                        Action
                     </th>
                     </tr>
                 </thead>
@@ -28,17 +28,33 @@
                     </td>
                     <td class="px-3 py-4 text-base text-gray-500 min-w-32">{{ $user->role }}</td>
                     <td class="px-3 py-4 text-base text-gray-500 min-w-48">
+                        <form action="{{ route('users.update.pm', $user->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
                         <div class="flex items-center space-x-3">
-                            <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary">
-                            <label for="category" class="text-gray-500">Product Management</label>
+                            <input id="cb-product" name="product_management" type="checkbox" class="cb-product h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" {{ $user->role === "Admin" ? 'checked disabled readonly' : ($user->product_management === 1 ? 'checked' : '') }}>
+                            <label for="cb-product" class="text-gray-500">Product Management</label>
                         </div>
+                        </form>
+                        <form action="{{ route('users.update.cm', $user->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
                         <div class="flex items-center space-x-3">
-                            <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary">
-                            <label for="category" class="text-gray-500">Category Management</label>
+                            <input id="cb-category" type="checkbox" class="cb-category h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" {{ $user->role === "Admin" ? 'checked disabled readonly' : ($user->category_management === 1 ? 'checked' : '') }}>
+                            <label for="cb-category" class="text-gray-500">Category Management</label>
                         </div>
+                        </form>
                     </td>
-                    <td class="px-3 py-4 text-base text-gray-500 min-w-48">{{ $user->created_at }}</td>
+                    <td class="px-3 py-4 text-base text-gray-500 min-w-48">{{ $user->created_at->format('F j, Y g:i a') }}</td>
                     <td class="relative py-4 pl-3 pr-4 text-right text-base font-medium sm:pr-0 min-w-32">
+                    @if($user->role === 'User')
+                    <form action="{{ route('users.delete', $user->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-600 hover:text-dark-red-700 ml-4">Delete</button>
+                    </form>
+                    @endif
+                    
                     </td>
                     </tr>   
                     @endforeach
@@ -50,5 +66,8 @@
     </div>
   </div>
 </div>
+
+<!-- External script -->
+<script type="text/javascript" src="{{ asset('js/users/update.js') }}"></script>
 
 @include('footer')
