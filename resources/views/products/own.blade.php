@@ -5,7 +5,7 @@
     <h2 class="text-3xl font-medium text-gray-700 mb-7">My Products</h2>
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
     @foreach($productList as $product)
-      <a href="#" class="group">
+      <a href="info/{{ $product->id }}" class="group">
         <div class="h-64 w-full overflow-hidden rounded-lg bg-gray-200">
           <img src="{{ asset('images/products/'. $product->photo) }}" alt="" class="h-full w-full object-cover object-center group-hover:opacity-75">
         </div>

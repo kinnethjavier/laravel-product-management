@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
+            $table->unsignedBigInteger('added_by')->nullable();
             $table->string('category')->unique();
             $table->string('description')->nullable();
+            $table->foreign('added_by')->references('id')->on('users');
             $table->timestamps();
         });
     }

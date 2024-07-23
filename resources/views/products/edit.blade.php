@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <div class="col-span-2 flex flex-col md:flex-row items-center justify-end gap-4 mt-2 md:mt-5">
-                    <a href="#" class="rounded-md w-full md:w-auto text-center border border-transparent bg-gray-500 px-8 py-3 text-base font-medium text-white hover:bg-gray-600">Cancel</a>
+                    <a href="/products/own" class="rounded-md w-full md:w-auto text-center border border-transparent bg-gray-500 px-8 py-3 text-base font-medium text-white hover:bg-gray-600">Cancel</a>
                     <button type="submit" class="rounded-md w-full md:w-auto border border-transparent bg-primary px-8 py-3 text-base font-medium text-white hover:bg-dark-primary">Save</button>
                 </div>
             </form>

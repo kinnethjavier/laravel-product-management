@@ -9,6 +9,16 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
+    // Add product (View)
+    public function addProduct()
+    {
+        if(Auth::check()){
+            return view('products.add');
+        }
+    
+        return redirect("login")->with('error', 'No credentials was found. Please sign in.');
+    }
+
     // Create POST Method
     public function store(Request $request) {
         $request->validate([
@@ -136,5 +146,12 @@ class ProductController extends Controller
         ]);
 
         return redirect("products/info/{$id}");
+    }
+
+    // Delete product
+    public function destroy($id) {
+        Product::destroy($id);
+
+        return redirect('products/own');
     }
 }

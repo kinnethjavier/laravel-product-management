@@ -100,7 +100,11 @@
           @if(auth()->user()->id == $productInfo->added_by)
             <div class="flex flex-col md:flex-row items-center justify-end gap-4 mt-10">
               <a href="/products/edit/{{ $productInfo->id }}" class="flex w-full md:w-auto items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700">Edit Product</a>
-              <a href="#" class="flex w-full md:w-auto items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700">Delete Product</a>
+              <form action="{{ route('products.delete', $productInfo->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="flex w-full md:w-auto items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700">Delete Product</button>
+              </form>
             </div>
           @endif
         @endif

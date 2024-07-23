@@ -33,16 +33,6 @@ class AuthController extends Controller
         return view('auth.register');
     }  
 
-    // Add Product
-    public function addProduct()
-    {
-        if(Auth::check()){
-            return view('products.add');
-        }
-  
-        return redirect("login")->with('error', 'No credentials was found. Please sign in.');
-    }
-
     // POST REQUESTS
     public function postLogin(Request $request) {
         $request->validate([
