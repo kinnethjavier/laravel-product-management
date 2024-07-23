@@ -19,6 +19,8 @@ class UserSeeder extends Seeder
             'email' => 'stealth@email.com',
             'role' => 'Admin',
             'password' => Hash::make('1234admin'),
+            'product_management' => 1,
+            'category_management' => 1,
         ]);
     }
 }

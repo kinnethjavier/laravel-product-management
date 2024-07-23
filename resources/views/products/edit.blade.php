@@ -47,12 +47,14 @@
                     <div>
                         <h4 class="block text-base font-medium leading-6 text-gray-900">Category (Select all that apply) *</h4>
                         <div class="grid grid-cols-2 md:grid-cols-3 mt-1.5 gap-2">
-                            @foreach(['Other', 'Cloth', 'Shoes', 'Phone'] as $category)
+                            @if($categoryList)
+                            @foreach($categoryList as $category)
                                 <div class="flex items-center space-x-3">
-                                    <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="{{ $category }}" {{ in_array($category, $productInfo->category) ? 'checked' : '' }}>
-                                    <label for="category" class="text-gray-900">{{ $category }}</label>
+                                    <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="{{ $category->category }}" {{ in_array($category->category, $productInfo->category) ? 'checked' : '' }}>
+                                    <label for="category" class="text-gray-900">{{ $category->category }}</label>
                                 </div>
                             @endforeach
+                            @endif
                         </div>
                     </div>
                     <!-- Color -->

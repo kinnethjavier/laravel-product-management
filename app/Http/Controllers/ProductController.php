@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -13,7 +14,8 @@ class ProductController extends Controller
     public function addProduct()
     {
         if(Auth::check()){
-            return view('products.add');
+            $categoryList = Category::all();
+            return view('products.add', compact('categoryList'));
         }
     
         return redirect("login")->with('error', 'No credentials was found. Please sign in.');
@@ -97,7 +99,10 @@ class ProductController extends Controller
     public function editProduct($id) {
         if(Auth::check()){            
             $productInfo = Product::where('id', $id)->first();
-            return view('products.edit', compact('productInfo'));
+            $categoryList = Category::all();
+            $categoryList->prepend(new Category(['category' => 'Other'])); // add default value of category
+
+            return view('products.edit', compact('productInfo', 'categoryList'));
         }
   
         return redirect("login")->with('error', 'No credentials was found. Please sign in.');

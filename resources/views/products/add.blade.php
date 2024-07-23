@@ -49,18 +49,12 @@
                         <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="Other">
                         <label for="category" class="text-gray-900">Other</label>
                         </div>
+                        @foreach($categoryList as $category)
                         <div class="flex items-center space-x-3">
-                        <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="Cloth">
-                        <label for="category" class="text-gray-900">Cloth</label>
+                        <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="{{ $category->category }}">
+                        <label for="category" class="text-gray-900">{{ $category->category }}</label>
                         </div>
-                        <div class="flex items-center space-x-3">
-                        <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="Shoes">
-                        <label for="category" class="text-gray-900">Shoes</label>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                        <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="Phone">
-                        <label for="category" class="text-gray-900">Phone</label>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <!-- Color -->

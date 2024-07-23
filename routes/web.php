@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Models\Category;
+use App\Http\Controllers\UserController;
 
 // Auth Routes
 Route::get('login', [AuthController::class, 'index'])->name('login');
@@ -37,3 +37,6 @@ Route::post('categories', [CategoryController::class, 'store'])->name('categorie
 Route::put('categories/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
 
 Route::delete('categories/delete/{id}', [CategoryController::class, 'destroy']) -> name('categories.delete');
+
+// User Management Routes
+Route::get('users', [UserController::class, 'show'])->name('users');
