@@ -19,7 +19,8 @@
 5. Generate an admin seed account by running: php artisan db:seed --class=UserSeeder
 
 ADMIN CREDENTIALS (Default):
-Username: stealth@email.com
-Password: 1234admin
+
+-   Username: stealth@email.com
+-   Password: 1234admin
 
 6. Run the Laravel application by: php artisan serve
