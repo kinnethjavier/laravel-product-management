@@ -119,7 +119,7 @@
                 </div>
             </form>
         @else
-            <h1>No data found</h1>
+            <h1>No data found.</h1>
         @endif
     <div>
 </div>
