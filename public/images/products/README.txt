@@ -1,0 +1,1 @@
+# This is parent folder is where all uploaded product photos are stored.
