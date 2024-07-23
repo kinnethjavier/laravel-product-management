@@ -11,7 +11,7 @@
     <!-- Offline use JQuery -->
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <!-- Offline use Sweet Alert -->
-    <script ype="text/javascript" src="{{ asset('js/sweet-alert.min.js') }}">></script>
+    <script ype="text/javascript" src="{{ asset('js/sweet-alert.min.js') }}"></script>
     <!-- Sweet Alert CSS -->
     <link rel="stylesheet" href="sweetalert2.min.css">
 </head>
@@ -57,13 +57,6 @@
         </button>
       </div>
       <div class="hidden lg:ml-4 lg:flex lg:items-center">
-        <button type="button" class="relative flex gap-x-1.5 flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-          <span class="absolute -inset-1.5"></span>
-          <span class="sr-only">View notifications</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-          (1)
-        </button>
-
         <!-- Profile dropdown -->
         <div class="relative ml-4 flex-shrink-0">
           <div>

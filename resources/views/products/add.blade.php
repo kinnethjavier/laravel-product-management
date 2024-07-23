@@ -46,7 +46,7 @@
                     <h4 class="block text-base font-medium leading-6 text-gray-900">Category (Select all that apply) *</h4>
                     <div class="grid grid-cols-2 md:grid-cols-3 mt-1.5 gap-2">
                         <div class="flex items-center space-x-3">
-                        <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="Cloth">
+                        <input id="category" name="category[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="Other">
                         <label for="category" class="text-gray-900">Other</label>
                         </div>
                         <div class="flex items-center space-x-3">

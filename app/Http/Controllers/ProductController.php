@@ -39,7 +39,7 @@ class ProductController extends Controller
 
         $check = $this->create($data);
 
-        return redirect("products")->with('success', 'New product added.');
+        return redirect("products/own");
     }
 
     public function create(array $data)
@@ -71,7 +71,7 @@ class ProductController extends Controller
     public function userProducts() {
         if(Auth::check()){
             $productList = Product::where('added_by', Auth::user()->id)->get();
-            return view('products.user-products', compact('productList'));
+            return view('products.own', compact('productList'));
         }
   
         return redirect("login")->with('error', 'No credentials was found. Please sign in.');
@@ -85,7 +85,7 @@ class ProductController extends Controller
 
     // Edit GET Method (View)
     public function editProduct($id) {
-        if(Auth::check()){
+        if(Auth::check()){            
             $productInfo = Product::where('id', $id)->first();
             return view('products.edit', compact('productInfo'));
         }
@@ -93,4 +93,48 @@ class ProductController extends Controller
         return redirect("login")->with('error', 'No credentials was found. Please sign in.');
     }
 
+    // Update Product
+    public function update(Request $request, $id) {
+        $request->validate([
+            'product_name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'category' => 'required',
+        ]);
+
+        $data = $request->all();
+
+        $product = Product::findOrFail($id);
+
+        // upload new photo if changed
+        if ($request->hasFile('photo')) {
+            // delete old photo
+            if ($product->photo && file_exists(public_path('images/products/' . $product->photo))) {
+                unlink(public_path('images/products/' . $product->photo));
+            }
+
+            $file = $request->file('photo');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = time() . '.' . $extension;
+            $file->move(public_path('images/products'), $fileName);
+            $data['photo'] = $fileName;
+        } else {
+            // retain old photo
+            $data['photo'] = $product->photo;
+        }
+
+        $product->update([
+            'product_name' => $data['product_name'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'photo' => $data['photo'],
+            'category' => $data['category'],
+            'specification' => $data['specification'] ?? NULL,
+            'color' => $data['color'] ?? NULL,
+            'size' => $data['size'] ?? NULL,
+        ]);
+
+        return redirect("products/info/{$id}");
+    }
 }

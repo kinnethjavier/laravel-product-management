@@ -31,7 +31,7 @@
     <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
       <!-- Product Image -->
       <div class="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-        <img src="{{ asset('images/products/'. $productInfo->photo) }}" alt="" class="h-full w-full object-cover object-center">
+        <img src="{{ asset('images/products/'. $productInfo->photo) }}" alt="" class="h-full w-full object-cover object-center bg-gray-100">
       </div>
       <div class=" sm:text-3xl mt-4 lg:mt-0 px-4 sm:px-0">
         <!-- Title -->
@@ -40,6 +40,11 @@
         <p class="text-3xl tracking-tight text-gray-900 mt-2">&#8369;{{ $productInfo->price }}</p>
         <!-- Description -->
         <p class="text-base mt-4 text-gray-900">{{ $productInfo->description }}</p>
+        <!-- Category -->
+        <div class="mt-8 flex items-center">
+          <h3 class="text-base font-medium text-gray-900">Category: </h3>
+          <h3 class="ml-2 text-base text-gray-900">{{ implode(', ', $productInfo->category) }}</h3>
+        </div>
         <!-- Specifications -->
         <div class="mt-8">
           <h3 class="text-base font-medium text-gray-900">Specification</h3>
@@ -53,16 +58,14 @@
             @else
               <h4 class="text-base text-gray-600">No specification available.</h4>
             @endif
-          
           </div>
         </div>
-
         <!-- Colors -->
         <div class="mt-8">
           <h3 class="text-base font-medium text-gray-900">Color</h3>
           <fieldset aria-label="Choose a color" class="mt-4">
             <div class="flex items-center space-x-3">
-            @if($productInfo->specification)
+            @if($productInfo->color)
               @foreach($productInfo->color as $color)
                 <div aria-label="White" class="relative -m-0.5 flex items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-none">
                   <span aria-hidden="true" class="h-8 w-8 rounded-full border border-black border-opacity-10 bg-[{{ $color }}]"></span>
@@ -88,15 +91,16 @@
                   @endforeach
                 </div>
               @else
-                <h4 class="text-base text-gray-600">Color is not available.</h4>
+                <h4 class="text-base text-gray-600">Size is not available.</h4>
               @endif
           </fieldset>
         </div>
+        <!-- Check if user is the creator of the product -->
         @if(auth()->user()->id)
           @if(auth()->user()->id == $productInfo->added_by)
             <div class="flex flex-col md:flex-row items-center justify-end gap-4 mt-10">
-              <button type="submit" class="flex w-full md:w-auto items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700">Edit Product</button>
-              <button type="submit" class="flex w-full md:w-auto items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700">Delete Product</button>
+              <a href="/products/edit/{{ $productInfo->id }}" class="flex w-full md:w-auto items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-green-700">Edit Product</a>
+              <a href="#" class="flex w-full md:w-auto items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700">Delete Product</a>
             </div>
           @endif
         @endif

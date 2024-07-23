@@ -4,8 +4,9 @@
     <div class="mx-auto px-4 py-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 class="text-3xl font-medium text-gray-700 mb-7">Edit Product</h2>
         @if($productInfo)
-            <form class="grid grid-cols-2 gap-x-20 gap-y-6" action="{{ route('products.add') }}" method="POST" enctype="multipart/form-data">
+            <form class="grid grid-cols-2 gap-x-20 gap-y-6" action="{{ route('products.update', $productInfo->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="space-y-6 col-span-2 lg:col-span-1">
                     <!-- Product name -->
                     <div>
@@ -58,46 +59,27 @@
                     <div>
                         <h4 class="block text-base font-medium leading-6 text-gray-900">Color (Optional)</h4>
                         <div class="grid grid-cols-2 md:grid-cols-3 mt-1.5 gap-2">
+                        @php
+                            $colors = [
+                                ['id' => 'color-white', 'value' => '#FFFFFF', 'label' => 'White'],
+                                ['id' => 'color-black', 'value' => '#000000', 'label' => 'Black'],
+                                ['id' => 'color-gray', 'value' => '#808080', 'label' => 'Gray'],
+                                ['id' => 'color-red', 'value' => '#FF0000', 'label' => 'Red'],
+                                ['id' => 'color-blue', 'value' => '#0000FF', 'label' => 'Blue'],
+                                ['id' => 'color-yellow', 'value' => '#FFFF00', 'label' => 'Yellow'],
+                                ['id' => 'color-green', 'value' => '#008000', 'label' => 'Green'],
+                                ['id' => 'color-purple', 'value' => '#A020F0', 'label' => 'Purple'],
+                                ['id' => 'color-orange', 'value' => '#FFA500', 'label' => 'Orange'],
+                                ['id' => 'color-pink', 'value' => '#FFC0CB', 'label' => 'Pink'],
+                            ];
+                        @endphp
+                        @foreach($colors as $color)
                             <div class="flex items-center space-x-3">
-                            <input id="color-white" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="#FFFFFF">
-                            <label for="color-white" class="text-gray-900">White</label>
+                                <input id="color-black" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="{{ $color['value'] }}"
+                                @if(in_array($color['value'], $productInfo->color ?? [])) checked @endif>
+                                <label for="color-black" class="text-gray-900">{{ $color['label'] }}</label>
                             </div>
-                            <div class="flex items-center space-x-3">
-                            <input id="color-black" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="#000000">
-                            <label for="color-black" class="text-gray-900">Black</label>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                            <input id="color-gray" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="#808080">
-                            <label for="color-gray" class="text-gray-900">Gray</label>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                            <input id="color-red" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="#FF0000">
-                            <label for="color-red" class="text-gray-900">Red</label>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                            <input id="color-blue" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="#0000FF">
-                            <label for="color-blue" class="text-gray-900">Blue</label>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                            <input id="color-yellow" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="#FFFF00">
-                            <label for="color-yellow" class="text-gray-900">Yellow</label>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                            <input id="color-green" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="#008000">
-                            <label for="color-green" class="text-gray-900">Green</label>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                            <input id="color-purple" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="#A020F0">
-                            <label for="color-purple" class="text-gray-900">Purple</label>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                            <input id="color-orange" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="#FFA500">
-                            <label for="color-orange" class="text-gray-900">Orange</label>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                            <input id="color-pink" name="color[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="#FFC0CB">
-                            <label for="color-pink" class="text-gray-900">Pink</label>
-                            </div>
+                        @endforeach
                         </div>
                     </div>
                     <!-- Size -->
@@ -106,7 +88,8 @@
                         <div class="grid grid-cols-2 md:grid-cols-3 mt-1.5 gap-2">
                             @foreach(['XXS', 'XS', 'S', 'L', 'M', 'XL'] as $size)
                                 <div class="flex items-center space-x-3">
-                                <input id="size" name="size[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="{{ $size }}" {{ in_array($size, $productInfo->size) ? 'checked' : '' }}>
+                                <input id="size" name="size[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" value="{{ $size }}" 
+                                @if(in_array($size, $productInfo->size ?? [])) checked @endif>
                                 <label for="size" class="text-gray-900">{{ $size }}</label>
                                 </div>
                             @endforeach
@@ -116,14 +99,16 @@
                     <div>
                         <label for="specification" class="block text-base font-medium leading-6 text-gray-900">Specification (optional)</label>
                         <div id="specs" class="mt-2 space-y-3">
-                         @foreach($productInfo->specification as $spec)
-                            <div id='spec-row' class='flex items-center space-x-2'> 
-                                <input name='specification[]' type='text' required value="{{ $spec }}" class='block w-full rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-0 focus:ring-2 focus:ring-inset focus:ring-primary sm:leading-6'>
-                                <button type='button' id='btn-remove-spec' class='flex md:w-auto items-center justify-center rounded-md border border-transparent bg-red-600 px-2 py-[5px] text-base font-medium text-white hover:bg-red-700'>
-                                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-trash-2'><path d='M3 6h18'/><path d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'/><path d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'/><line x1='10' x2='10' y1='11' y2='17'/><line x1='14' x2='14' y1='11' y2='17'/></svg>
-                                </button> 
-                            </div>
-                         @endforeach
+                        @if($productInfo->specification)
+                            @foreach($productInfo->specification as $spec)
+                                <div id='spec-row' class='flex items-center space-x-2'> 
+                                    <input name='specification[]' type='text' required value="{{ $spec }}" class='block w-full rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-0 focus:ring-2 focus:ring-inset focus:ring-primary sm:leading-6'>
+                                    <button type='button' id='btn-remove-spec' class='flex md:w-auto items-center justify-center rounded-md border border-transparent bg-red-600 px-2 py-[5px] text-base font-medium text-white hover:bg-red-700'>
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-trash-2'><path d='M3 6h18'/><path d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'/><path d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'/><line x1='10' x2='10' y1='11' y2='17'/><line x1='14' x2='14' y1='11' y2='17'/></svg>
+                                    </button> 
+                                </div>
+                            @endforeach
+                        @endif
                         </div>
                         <button id="btn-add-spec" type="button" class="flex mt-3 md:w-auto items-center justify-center rounded-md border border-transparent bg-green-600 px-3 py-[5px] text-base font-medium text-white hover:bg-green-700">Add specification</button>
                     </div>
