@@ -25,7 +25,7 @@
                         This is a default generated category.
                     </td>
                     <td class="px-3 py-4 text-base text-gray-500 min-w-48">System</td>
-                    <td class="px-3 py-4 text-base text-gray-500 min-w-48">July 23, 2002 12:00 pm</td>
+                    <td class="px-3 py-4 text-base text-gray-500 min-w-48">July 23, 2024 12:00 pm</td>
                     <td class="relative py-4 pl-3 pr-4 text-right text-base font-medium sm:pr-0 min-w-32">
                     </td>
                     </tr>
