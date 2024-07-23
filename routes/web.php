@@ -40,7 +40,9 @@ Route::delete('categories/delete/{id}', [CategoryController::class, 'destroy'])-
 
 // User Management Routes
 Route::get('users', [UserController::class, 'show'])->name('users');
+Route::get('users/password', [UserController::class, 'editPassword'])->name('users.update.password');
 
+Route::put('users/update/password', [UserController::class, 'updatePassword'])->name('users.update.password');
 Route::put('users/update/pm/{id}', [UserController::class, 'updatePM'])->name('users.update.pm');
 Route::put('users/update/cm/{id}', [UserController::class, 'updateCM'])->name('users.update.cm');
 

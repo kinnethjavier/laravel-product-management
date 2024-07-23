@@ -25,12 +25,9 @@
         </div>
         <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
           <!-- Current: "border-primary text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-          <a href="#" class="inline-flex items-center border-b-2 border-primary px-1 pt-1 text-base font-medium text-gray-900">Products</a>
-          <a href="#" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-base font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Categories</a>
-          <a href="#" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-base font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">My Products</a>
-          <form action="{{ route('logout') }}" method="GET">
-            <button type="submit">Logout</button>
-          </form>
+          <a href="/products" class="inline-flex items-center border-b-2 border-primary px-1 pt-1 text-base font-medium text-gray-900">Products</a>
+          <a href="/categories" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-base font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Categories</a>
+          <a href="/products/own" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-base font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">My Products</a>
         </div>
       </div>
       <div class="flex items-center lg:hidden">
@@ -60,7 +57,7 @@
         <!-- Profile dropdown -->
         <div class="relative ml-4 flex-shrink-0">
           <div>
-            <button type="button" class="relative flex rounded-full bg-white text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+            <button id="btn-account-menu" type="button" class="relative flex rounded-full bg-white text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Open user menu</span>
               <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
@@ -77,11 +74,12 @@
               From: "transform opacity-100 scale-100"
               To: "transform opacity-0 scale-95"
           -->
-          <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+          <div id="account-menu" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
             <!-- Active: "bg-gray-100", Not Active: "" -->
-            <a href="#" class="block px-4 py-2 text-base text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-            <a href="#" class="block px-4 py-2 text-base text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-            <a href="#" class="block px-4 py-2 text-base text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+            <a href="#" class="block px-4 py-2 text-base text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Change password</a>
+            <form action="{{ route('logout') }}" method="GET">
+              <button type="submit" class="block px-4 py-2 text-base text-gray-700">Sign out</button>
+            </form>
           </div>
         </div>
       </div>
@@ -92,9 +90,9 @@
   <div class="hidden lg:hidden" id="mobile-menu">
     <div class="space-y-1 pb-3 pt-2">
       <!-- Current: "bg-indigo-50 border-primary text-indigo-700", Default: "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" -->
-      <a href="#" class="block border-l-4 border-primary bg-blue-50 py-2 pl-3 pr-4 text-base font-medium text-primary">Products</a>
-      <a href="#" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">Categories</a>
-      <a href="#" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">My Products</a>
+      <a href="/products" class="block border-l-4 border-primary bg-blue-50 py-2 pl-3 pr-4 text-base font-medium text-primary">Products</a>
+      <a href="/categories" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">Categories</a>
+      <a href="/products/own" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">My Products</a>
     </div>
     <div class="border-t border-gray-200 pb-3 pt-4">
       <div class="flex items-center px-4">
@@ -114,10 +112,12 @@
         </button>
       </div>
       <div class="mt-3 space-y-1">
-        <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Your Profile</a>
-        <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Settings</a>
+        <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Change password</a>
         <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Sign out</a>
       </div>
     </div>
   </div>
 </nav>
+
+<!-- External script -->
+<script type="text/javascript" src="{{ asset('js/users/index.js') }}"></script>

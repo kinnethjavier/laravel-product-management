@@ -48,4 +48,33 @@ class UserController extends Controller
 
         return redirect('users');
     }
+
+    // Edit GET Method (View)
+    public function editPassword() {
+        if(Auth::check()){            
+            return view('users.password');
+        }
+  
+        return redirect("login")->with('error', 'No credentials was found. Please sign in.');
+    }
+
+    // Update password
+    public function updatePassword(Request $request) {
+        $request->validate([
+            'password' => 'required|confirmed|min:8',
+            'password_confirmation' => 'required|min:8'
+        ]);
+
+        $data = $request->all();
+
+        $user = User::findOrFail(Auth::user()->id);
+
+        $check = $user->update([
+            'password' => $data['password'],
+        ]);
+
+        if($check) {
+            return redirect("products")->with('success', 'Successfully configured new password.');
+        }
+    }
 }

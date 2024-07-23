@@ -6,7 +6,7 @@
         <form class="grid grid-cols-2 gap-x-20 gap-y-6" action="{{ route('categories.add') }}" method="POST">
             @csrf
             <div class="space-y-6 col-span-2 lg:col-span-1">
-                <!-- Product name -->
+                <!-- Category name -->
                 <div>
                     <label for="category" class="block text-base font-medium leading-6 text-gray-900">Category Name *</label>
                     <div class="mt-2">

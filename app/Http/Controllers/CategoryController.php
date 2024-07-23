@@ -43,12 +43,8 @@ class CategoryController extends Controller
 
     // Retrieve all categories (View)
     public function show() {
-        if(Auth::check()){
-            $categoryList = Category::with('user')->get();
-            return view('categories.index', compact('categoryList'));
-        }
-  
-        return redirect("login")->with('error', 'No credentials was found. Please sign in.');
+        $categoryList = Category::with('user')->get();
+        return view('categories.index', compact('categoryList'));
     }
 
     // Edit GET Method (View)

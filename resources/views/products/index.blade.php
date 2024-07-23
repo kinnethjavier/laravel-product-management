@@ -3,6 +3,11 @@
 <div class="bg-white py-12">
   <div class="mx-auto px-4 py-16 sm:px-6 lg:max-w-7xl lg:px-8">
     <h2 class="text-3xl font-medium text-gray-700 mb-7">All Products</h2>
+    @if (session('success'))
+      <span class="inline-flex items-center rounded-md w-full bg-green-50 px-2 py-1 text-base font-medium text-green-700 ring-1 ring-inset ring-green-600/10 mb-5">
+        {{ session('success') }}
+      </span>
+    @endif
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
       @foreach($productList as $product)
         <a href="#" class="group">

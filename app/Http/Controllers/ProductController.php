@@ -71,12 +71,8 @@ class ProductController extends Controller
 
     // Retrieve all products (View)
     public function show() {
-        if(Auth::check()){
-            $productList = Product::with('user')->get();
-            return view('products.index', compact('productList'));
-        }
-  
-        return redirect("login")->with('error', 'No credentials was found. Please sign in.');
+        $productList = Product::with('user')->get();
+        return view('products.index', compact('productList'));
     }
 
     // Retrieve user products (View)
