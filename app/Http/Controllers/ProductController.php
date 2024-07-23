@@ -103,7 +103,7 @@ class ProductController extends Controller
         return redirect("login")->with('error', 'No credentials was found. Please sign in.');
     }
 
-    // Update Product
+    // Update product
     public function update(Request $request, $id) {
         $request->validate([
             'product_name' => 'required',

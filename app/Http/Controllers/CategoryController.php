@@ -41,13 +41,48 @@ class CategoryController extends Controller
       ]);
     }
 
-     // Retrieve all categories (View)
-     public function show() {
+    // Retrieve all categories (View)
+    public function show() {
         if(Auth::check()){
             $categoryList = Category::with('user')->get();
             return view('categories.index', compact('categoryList'));
         }
   
         return redirect("login")->with('error', 'No credentials was found. Please sign in.');
+    }
+
+    // Edit GET Method (View)
+    public function editCategory($id) {
+        if(Auth::check()){            
+            $categoryInfo = Category::where('id', $id)->first();
+            return view('categories.edit', compact('categoryInfo'));
+        }
+  
+        return redirect("login")->with('error', 'No credentials was found. Please sign in.');
+    }
+
+    // Update category
+    public function update(Request $request, $id) {
+        $request->validate([
+            'category' => 'required',
+        ]);
+
+        $data = $request->all();
+
+        $category = Category::findOrFail($id);
+
+        $category->update([
+            'category' => $data['category'],
+            'description' => $data['description'],
+        ]);
+
+        return redirect("categories");
+    }
+
+    // Delete category
+    public function destroy($id) {
+        Category::destroy($id);
+
+        return redirect('categories');
     }
 }

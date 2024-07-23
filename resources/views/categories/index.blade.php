@@ -19,6 +19,16 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
+                    <tr>
+                    <td class="py-4 pl-4 pr-3 text-base font-medium text-gray-900 sm:pl-0 min-w-44">Other</td>
+                    <td class="px-3 py-4 text-base text-gray-500 min-w-80">
+                        This is a default generated category.
+                    </td>
+                    <td class="px-3 py-4 text-base text-gray-500 min-w-48">System</td>
+                    <td class="px-3 py-4 text-base text-gray-500 min-w-48">July 23, 2002 12:00 pm</td>
+                    <td class="relative py-4 pl-3 pr-4 text-right text-base font-medium sm:pr-0 min-w-32">
+                    </td>
+                    </tr>
                     @if($categoryList)
                         @foreach($categoryList as $category)
                         <tr>
@@ -30,16 +40,22 @@
                             No description available.
                             @endif
                         </td>
-                        <td class="px-3 py-4 text-base text-gray-500 min-w-48">lindsay.walton@example.com</td>
-                        <td class="px-3 py-4 text-base text-gray-500 min-w-48">July 24, 2002 9:00 am</td>
-                        <td class="relative py-4 pl-3 pr-4 text-right text-base font-medium sm:pr-0 min-w-32">
-                            <a href="#" class="text-primary hover:text-dark-primary">Edit</a>
-                            <a href="#" class="text-red-600 hover:text-dark-red-700 ml-4">Delete</a>
+                        <td class="px-3 py-4 text-base text-gray-500 min-w-48">{{ $category->user->first_name }} {{ $category->user->last_name }}</td>
+                        <td class="px-3 py-4 text-base text-gray-500 min-w-48">{{ $category->created_at->format('F j, Y g:i a') }}</td>
+                        <td class="relative py-4 pl-3 pr-4 text-base font-medium sm:pr-0 min-w-32">
+                            <div class="flex justify-end">
+                                <a href="/categories/edit/{{ $category->id }}" class="text-primary hover:text-dark-primary">Edit</a>
+                                <form action="{{ route('categories.delete', $category->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-dark-red-700 ml-4">Delete</button>
+                                </form>
+                            </div>
                         </td>
                         </tr>
                         @endforeach
                     @else
-                    <h1>Hello</h1>
+                        <div></div>
                     @endif
                     
                 </tbody>

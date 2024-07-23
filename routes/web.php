@@ -30,5 +30,10 @@ Route::delete('products/delete/{id}', [ProductController::class, 'destroy']) -> 
 // Category Routes
 Route::get('categories', [CategoryController::class, 'show'])->name('categories');
 Route::get('categories/add', [CategoryController::class, 'addCategory'])->name('categories.add');
+Route::get('categories/edit/{id}', [CategoryController::class, 'editCategory'])->name('categories.edit');
 
 Route::post('categories', [CategoryController::class, 'store'])->name('categories.add');
+
+Route::put('categories/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
+
+Route::delete('categories/delete/{id}', [CategoryController::class, 'destroy']) -> name('categories.delete');
